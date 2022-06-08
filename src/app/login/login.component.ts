@@ -10,11 +10,14 @@ import { User } from '../user';
 export class LoginComponent implements OnInit {
   public username: string;
   public password: string;
+  public success: boolean;
+  public result: string;
 
   constructor(private loginService: LoginServiceService) { 
-    this.username="test";
-    this.password="123";
-
+    this.username="jannes3";
+    this.password="password123";
+    this.success=false;
+    this.result="";
 
    }
 
@@ -24,11 +27,26 @@ export class LoginComponent implements OnInit {
   login(): void {
     this.loginService.loginUser(this.username, this.password)
     .subscribe(
-      (erg: User) => {this.username = erg.username;},
+      (erg: string) => {console.log(erg);
+
+        //const result1 = document.getElementById("test");
+        if(erg!=null){
+          this.result=erg;
+        } else {
+          this.result="fail";
+        }
+        console.log(erg);
+        
+        
+        
+    },
     
       error => {error = 'Fehler aufgetaucht';
+      console.log(error);
+      this.result="login failed";
     }
     );
+
     
   }
 
